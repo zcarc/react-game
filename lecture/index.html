@@ -12,119 +12,49 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        class GuGudan extends React.Component {
 
-            // consructor를 사용하는 방법인데 실무에서는 거의 쓰지 않는다.
-            // constructor(props) {
-            //     super(props);
-            //
-            //     console.log('constructor...');
-            //     this.state = {
-            //         first: Math.ceil(Math.random() * 9),
-            //         second: Math.ceil(Math.random() * 9),
-            //         value: '',
-            //         result: '',
-            //     };
-            // }
+        // setState()를 사용하지 않을 경우 함수형 컴포넌트를 사용했었다.
+        const GuGudan = () => {
+            const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+            const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+            const [value, setValue] = React.useState('');
+            const [result, setResult] = React.useState('');
+            const inputRef = React.useRef(null); // null은 초기값
 
-            // constructor를 제외한 state에 객체를 담아서 사용하는 방법을 더 많이 사용한다.
-            state = {
-                first: Math.ceil(Math.random() * 9),
-                second: Math.ceil(Math.random() * 9),
-                value: '',
-                result: '',
+            const onChangeInput = (e) => {
+              setValue(e.target.value);
             };
 
-            // 이 부분에서 function 함수를 사용한다면 함수 내의 this가 변경되므로
-            // 반드시 화살표 함수를 사용해야한다.
-            onChange = (e) => { // this: GuGudan class
-                // console.log(e);
-                // console.log(e.target);
-                // console.log(e.target.value);
-                // console.log(this);
-
-                // 입력하기만 하면 값이 변경되지 않아서
-                // value에 값이 입력될 때 마다  state 변수에 value를 저장해야한다.
-                this.setState({ value: e.target.value });
-            };
-
-
-            onSubmit = (e) => {
-
+            const onSubmitForm = (e) => {
                 e.preventDefault();
-
-                console.log('onSubmit...');
-
-                console.log(typeof(this.state.value));
-
-                if(parseInt(this.state.value) === this.state.first * this.state.second){
-
-                    // setState() 메서드는 비동기이다.
-                    // setState() 메서드 안에 예전 state를 참조해야한다면 일단 내부를 함수로 정의하는 것으로 약속한다.
-                    this.setState( (prevState) => {
-
-                        return {
-                            result: `${prevState.value} 정답입니다.`,
-                            first: Math.ceil(Math.random() * 9),
-                            second: Math.ceil(Math.random() * 9),
-                            value: '',
-
-                        }
-                    });
-
-                    console.log('this.input: ', this.input);
-                    this.input.focus();
-
-                    // this.setState({
-                    //     result: `${this.state.value} 정답입니다.`,
-                    //     first: Math.ceil(Math.random() * 9),
-                    //     second: Math.ceil(Math.random() * 9),
-                    //     value: '',
-                    // });
-
+                if(parseInt(value) === first * second) {
+                    setFirst(Math.ceil(Math.random() * 9));
+                    setSecond(Math.ceil(Math.random() * 9));
+                    setValue('');
+                    setResult('정답입니다.');
+                    inputRef.current.focus();
                 } else {
-                    this.setState({
-                        result: '오답입니다.',
-                        value: '',
-                    });
-                    this.input.focus();
+                    setValue('');
+                    setResult('오답입니다.');
+                    inputRef.current.focus();
                 }
             };
 
-            onRefInput = (c) => {
-                this.input = c;
-            }
-
-            input;
-
-            render(){
-                // return (<div></div>); 이런식으로 사용하거나
-                // return <div></div>; 이런식으로 소괄호 없이 사용해도 상관없다.
-                // 그런데 가독성 때문에 소괄호를 사용하는게 좋다.
-                // {} 중괄호는 자바스크립트 문법을 사용할 때 사용한다.
-                console.log('render...');
-                return (
-                    // return () : 그룹 연산자, 의미는 없으나 연산자 우선순위 정할 때는 의미가 있다.
-                    // 리턴을 할 때 최상위 태그 div 태그는 쓸모가 없는데 생성되어서 나중에 문제가 생긴다
-                    // 없애는 방법은 React.Fragment 를 사용한다.
-                    // 추가적으로 함수를 클래스내에 선언하지 않고 render() 함수에 선언한다면
-                    // 계속 반복적으로 똑같은 함수를 생성한다. 그래서 최적화가 안되서 클래스 내의 함수로 만드는게 낫다.
-                    <React.Fragment>
-                        <div>{this.state.first}곱하기{this.state.second}는?</div>
-                        <form onSubmit={this.onSubmit}>
-                            <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange}/>
-                            <button>입력!</button> {/* 'form'안의 'button'은 기본 'type'이 'submit'이다. */}
-                        </form>
-                        <div>{this.state.result}</div>
-                    </React.Fragment>
-                );
-            }
-
+            return (
+              <React.Fragment>
+                  <div>{first}곱하기{second}는?</div>
+                  <form onSubmit={onSubmitForm}>
+                      <input ref={inputRef} type="number" value={value} onChange={onChangeInput} />
+                      <button>입력!</button>
+                  </form>
+                  <div>{result}</div>
+              </React.Fragment>
+            );
         }
+
     </script>
 
     <script type="text/babel">
-        // ReactDOM.render( e(LikeButton) , document.querySelector("#root") );
         ReactDOM.render( <GuGudan />, document.querySelector("#root") );
     </script>
 
