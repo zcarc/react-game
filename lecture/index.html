@@ -58,12 +58,28 @@
                 console.log(typeof(this.state.value));
 
                 if(parseInt(this.state.value) === this.state.first * this.state.second){
-                    this.setState({
-                        result: `${this.state.value} 정답입니다.`,
-                        first: Math.ceil(Math.random() * 9),
-                        second: Math.ceil(Math.random() * 9),
-                        value: '',
+
+                    // setState() 메서드는 비동기이다.
+                    // setState() 메서드 안에 예전 state를 참조해야한다면 일단 내부를 함수로 정의하는 것으로 약속한다.
+                    this.setState( (prevState) => {
+
+                        return {
+                            result: `${prevState.value} 정답입니다.`,
+                            first: Math.ceil(Math.random() * 9),
+                            second: Math.ceil(Math.random() * 9),
+                            value: '',
+
+                        }
                     });
+
+                    // this.setState({
+                    //     result: `${this.state.value} 정답입니다.`,
+                    //     first: Math.ceil(Math.random() * 9),
+                    //     second: Math.ceil(Math.random() * 9),
+                    //     value: '',
+                    // });
+
+
 
                 } else {
                     this.setState({
