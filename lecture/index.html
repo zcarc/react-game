@@ -2,53 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>구구단</title>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
 </head>
 <body>
 
-    <div id="root"></div> <!-- <div class="root"><button>Like</button></div> -->
+    <div id="root"></div>
 
     <script type="text/babel">
-        // const e = React.createElement;
-
-        class LikeButton extends React.Component {
+        class GuGudan extends React.Component {
 
             constructor(props) {
                 super(props);
-                this.state = {
-                    liked: false
-                }
-            }
-            render() {
-                // JSX: javascript + XML
-                return <button type= "submit" onClick={() => {this.state({ liked: true })}}>
-                    {this.state.liked === true ? "Liked" : "Like"}</button>;
 
-                // return e(
-                //     'button',
-                //     {onClick: () => {this.setState({ liked: true });}, type: 'submit'},
-                //     this.state.liked === true ? 'Liked' : 'Like' // true라면 클릭했다는 의미이므로 Liked로 설정 초기 값은 false이므로 Like
-                // );
-                // <button onclick="() => console.log('clicked')" type="submit">Like</button>
+                console.log('constructor...');
+                this.state = {
+                    first: Math.ceil(Math.random() * 9),
+                    second: Math.ceil(Math.random() * 9),
+                    value: '',
+                    result: '',
+                };
             }
+
+            render(){
+                // return (<div></div>); 이런식으로 사용하거나
+                // return <div></div>; 이런식으로 중괄호 없이 사용해도 상관없다.
+                // 그런데 가독성 때문에 중괄호를 사용하는게 좋다.
+                // {} 소괄호는 자바스크립트 문법을 사용할 때 사용한다.
+                console.log('render...');
+                return (
+                    <div>
+                        <div>{this.state.first}곱하기{this.state.second}는?</div>
+                        <form>
+                            <input type="number" value={this.state.value}
+                                   onChange={ (e) => { // this: GuGudan class
+                                       console.log(e); console.log(e.target); console.log(e.target.value); console.log(this); this.setState({ value: e.target.value }) } }/>
+                            <button>입력!</button>
+                        </form>
+                        <div>{this.state.result}</div>
+                    </div>
+                );
+            }
+
         }
     </script>
 
     <script type="text/babel">
         // ReactDOM.render( e(LikeButton) , document.querySelector("#root") );
-        ReactDOM.render( <div>
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-            <LikeButton />
-        </div> , document.querySelector("#root") );
+        ReactDOM.render( <GuGudan /> , document.querySelector("#root") );
     </script>
 
 </body>
