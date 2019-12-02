@@ -3,3 +3,15 @@
     바벨은 문법만 최신문법으로 변환해준다.
     기존에 바벨만 추가해서 자바스크립트로 변환한 상태에서
     최신 객체나 메서드를 사용하고 싶다면 바벨 폴리픽이라는 것을 추가해야한다.
+
+
+2-3.
+    lecture>npm init
+    lecture>npm i react react-dom
+    lecture>npm i -D webpack webpack-cli
+
+    -D: 개발할 때만 사용한다는 의미
+        실제 서비스 할 때는 webpack이 필요없다.
+
+    devDependencies 에는 개발할 때만 사용하고,
+    dependencies 에는 실제 서비스할 때 사용한다.
