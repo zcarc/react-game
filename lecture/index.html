@@ -26,6 +26,41 @@
                 };
             }
 
+            onChange = (e) => { // this: GuGudan class
+                console.log(e);
+                console.log(e.target);
+                console.log(e.target.value);
+                console.log(this);
+
+                // 입력하기만 하면 값이 변경되지 않아서
+                // value에 값이 입력될 때 마다  state 변수에 value를 저장해야한다.
+                this.setState({ value: e.target.value });
+            };
+
+            onSubmit = (e) => {
+
+                e.preventDefault();
+
+                console.log('onSubmit...');
+
+                console.log(typeof(this.state.value));
+
+                if(parseInt(this.state.value) === this.state.first * this.state.second){
+                    this.setState({
+                        result: `${this.state.value} 정답입니다.`,
+                        first: Math.ceil(Math.random() * 9),
+                        second: Math.ceil(Math.random() * 9),
+                        value: '',
+                    });
+
+                } else {
+                    this.setState({
+                        result: '오답입니다.',
+                        value: '',
+                    });
+                }
+            };
+
             render(){
                 // return (<div></div>); 이런식으로 사용하거나
                 // return <div></div>; 이런식으로 중괄호 없이 사용해도 상관없다.
@@ -35,13 +70,11 @@
                 return (
                     <div>
                         <div>{this.state.first}곱하기{this.state.second}는?</div>
-                        <form>
-                            <input type="number" value={this.state.value}
-                                   onChange={ (e) => { // this: GuGudan class
-                                       console.log(e); console.log(e.target); console.log(e.target.value); console.log(this); this.setState({ value: e.target.value }) } }/>
+                        <form onSubmit={this.onSubmit}>
+                            <input type="number" value={this.state.value} onChange={this.onChange}/>
                             <button>입력!</button>
                         </form>
-                        <div>{this.state.result}</div>
+                        <div>{this.state.resultValue} {this.state.result}</div>
                     </div>
                 );
             }
@@ -51,7 +84,7 @@
 
     <script type="text/babel">
         // ReactDOM.render( e(LikeButton) , document.querySelector("#root") );
-        ReactDOM.render( <GuGudan /> , document.querySelector("#root") );
+        ReactDOM.render( <div> <GuGudan /><GuGudan /><GuGudan /> </div>  , document.querySelector("#root") );
     </script>
 
 </body>
