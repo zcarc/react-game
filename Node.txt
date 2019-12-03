@@ -15,3 +15,21 @@
 
     devDependencies 에는 개발할 때만 사용하고,
     dependencies 에는 실제 서비스할 때 사용한다.
+
+2-5.
+    lecture>webpack 명령어 입력시 명령어를 찾을 수 없다고 에러가 뜨는 경우 해결방법
+        1. package.json 의 scripts에 "dev": "webpack"으로 명시하는 방법
+            npm run dev 치는 순간 webpack 실행
+
+        2. npx webpack 명령어로 실행
+
+
+    바벨 설치 (배포할 때는 안쓰이고 개발할 때만 쓰인다.)
+    npm 다음에 패키지를 여러개 설치하는데 한칸 띄는 의미는 '&'의 의미로 'and'의 의미이다.
+    @bable/core: 바벨 코어 파일이 내장되어 있다.(기본 파일)
+    @babel/preset-env: 브라우저에 맞게 알아서 최신문법들을 해석할 수 있는 문법(예전 문법)으로 변환해준다.
+    @bable/preset-react: jsx를 지원해준다.
+    babel-loader: babel과 webpack을 연결해준다.
+    lecture>npm i -D @babel/core @babel/preset-env @babel/preset-react babel-loader
+
+    @babel/plugin-proposal-class-properties
