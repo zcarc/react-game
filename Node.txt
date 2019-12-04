@@ -115,3 +115,68 @@
     localhost:8080으로 들어가서 실행해보면 두가지가 뜬다.
     HMR: Hot module reload
     WDS: Web pack dev server
+
+
+
+3-1. import와 require 비교
+
+    require(''): 노드의 모듈 시스템
+    import: ES2015 문법
+
+    import는 정적 임포트, require는 동적 임포트라는 차이가 있다.
+    import는 항상 파일 상단에, require는 파일 아무데서나 쓸 수 있다.
+
+    class NumberBaseball extends Component{}
+    module.exports = NumberBaseball;
+    const numberBaseball = require('./NumberBaseball');
+
+    변수 numberBaseball는 클래스가 된다.
+    require()와 import는 호환이 된다.
+
+
+    import React from 'react';
+    import ReactDOM from 'react-dom');
+
+    import WordRelay from = require('./WordRelay_Hooks');
+    import {hot} from 'react-hot-loader/root';
+
+    const {Hot} = hot(WordRelay);
+
+    exports 되는 게 객체나 배열이면 구조 분해할 수 있다.
+
+
+    NumberBaseball.jsx
+        import React, {Component} from 'react';
+
+        class NumberBaseball extends Component {
+        }
+
+        exports const hello = 'hello'; // default 가 아닌 것들은 import { hello };
+        exports default NumberBaseball; // 가져올 때 import NumberBaseball
+
+    default는 exports를 한번만 쓸 수 있고 나머지들은 변수명만 겹치지 않으면 계속 만들 수 있다.
+
+    엄밀히 따지면
+    "exports default"와 "module.exports"는 다르다.
+    하지만 호환이 된다라고만 알고 있으면 된다.
+
+    노드 모듈 시스템에서
+    module.ports = { hello: 'a' };
+    exports.hello = 'a';
+    위 두개는 서로 같다.
+
+    그래서 "import", "exports default"는 ES2015 문법이고
+    "require()", "exports.module"은 노드의 모듈 문법이다.
+
+    노드의 모듈 문법은 common.js 라고 한다.
+
+    노드에서는 기본적으로 노드 모듈 문법만 지원한다.
+    그래서 import를 쓰면 에러가 난다.
+    근데 다른 코드들 중 import를  쓰는데도 동작하는 이유는
+    바벨이 import도 require로 바꿔준다.
+    노드에서는 노드 문법쓰고 리액트에서는 ES2015 문법 쓴다고 생각하면 된다.
+
+    주의할점은 webpack.config.js에서는 ES2015 문법을 사용하면 에러가 발생해서
+    require()을 사용하는 노드 문법을 사용해야한다.
+    그래서 client의 jsx 파일들은 웹팩이 다 바꿔주기 때문에 ES2015 문법을 사용해도 상관없다.
+
