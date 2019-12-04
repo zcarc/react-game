@@ -29,7 +29,18 @@
     @bable/core: 바벨 코어 파일이 내장되어 있다.(기본 파일)
     @babel/preset-env: 브라우저에 맞게 알아서 최신문법들을 해석할 수 있는 문법(예전 문법)으로 변환해준다.
     @bable/preset-react: jsx를 지원해준다.
-    babel-loader: babel과 webpack을 연결해준다.
+    babel-loader: babel과 webpack을 연결해준다. (webpack이 js 파일들에 대해 babel을 실행하도록 만들어준다.)
     lecture>npm i -D @babel/core @babel/preset-env @babel/preset-react babel-loader
 
-    @babel/plugin-proposal-class-properties
+    lecture>npm i -D @babel/plugin-proposal-class-properties
+
+
+2-6.
+    01_GuGuDan>npm init
+    01_GuGuDan>npm i react react-dom
+    01_GuGuDan>npm i -D webpack webpack-cli
+    01_GuGuDan>npm i -D @babel/core @babel/preset-env @babel/preset-react babel-loader @babel/plugin-proposal-class-properties
+
+    * IE에서 넣어주면 좋은 메타 태그
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
