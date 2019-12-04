@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 
@@ -17,11 +18,22 @@ module.exports = {
             test: /.jsx?/,
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env', '@babel/preset-react'],
+                presets: [
+                    ['@babel/preset-env', {
+                        targets:{
+                            browsers: ['> 1% in KR']
+                        },
+                        debug: true,
+                    }], '@babel/preset-react'],
                 plugins: []
             }
         }]
     },
+
+    // module의 options에 debug: true를 전부 넣어준다.
+    plugins: [
+        new webpack.LoaderOptionsPlugin({ debug: true })
+    ],
 
     output: {
         filename: 'app.js',

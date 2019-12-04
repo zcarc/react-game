@@ -44,3 +44,40 @@
     * IE에서 넣어주면 좋은 메타 태그
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+2-7.
+    plugins의 모음들이 presets
+    @babel/preset-env 안에 많은 플러그인들이 포함되어 있다.
+    예전 브라우저들을 바벨이 호환될 수 있도록 하는 것인데
+    특정 버전의 브라우저만 호환되게 하고 싶을 때 옵션을 줄 수 있다.
+    options: {
+                    presets: [
+                        ['@babel/preset-env', {
+                            targets:{
+                                browsers: ['last 2 chrome versions']
+                            }
+                        }], '@babel/preset-react'],
+                    plugins: []
+                }
+    이렇게 작성하면 크롬 최신버전과 그 전 버전까지 호환되게 설정하고 익스플로러는 호환되지 않는다.
+    회사에서 지원하고자 하는 브라우저만 적어주면 더 좋다.
+    전부 다 지원하게 만들면 바벨에서 하는 일이 많기 때문에 점점 느려진다.
+
+    브라우저 목록을 볼 수 있는 주소
+    https://github.com/browserslist/browserslist
+
+    이렇게 작성하면 한국에서 점유율이 5% 이상인 브라우저들을 지원한다는 의미이다.
+    browsers: ['> 5% in KR']
+
+    "debug: true"는 개발할 때 사용할 수도 있다.
+    options: {
+                        presets: [
+                            ['@babel/preset-env', {
+                                targets:{
+                                    browsers: ['> 5% in KR', 'last 2 chrome versions']
+                                },
+                                debug: true,
+                            }], '@babel/preset-react'],
+                        plugins: []
+                    }
+
