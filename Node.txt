@@ -96,3 +96,22 @@
 
     webpack-dev-server가 감지하는 것은 클라이언트에서 불러온 애들만 자동으로 업데이트 해주고
     webpack.config.js에서는 바뀐것을 감지하지 못한다.
+
+
+
+2-10.
+
+    리액트 버전 업으로 react-hot-loader는 추가 설정이 필요하다.
+    "webpack.config.js"의 "rules"에 아래 부분을 추가해야함.
+            {
+                test: /\.(js|jsx)$/,
+                use: 'react-hot-loader/webpack',
+                include: /node_modules/
+            }
+
+    클래스 메서드들은 더 이상 클래스가 아니기 때문에 Hooks 함수 내의 메서드들은
+    const, let 타입으로 변수로 선언을 해줘야한다.
+
+    localhost:8080으로 들어가서 실행해보면 두가지가 뜬다.
+    HMR: Hot module reload
+    WDS: Web pack dev server

@@ -5,7 +5,10 @@ module.exports = {
     mode: 'development',
     devtool: 'eval', // production: hidden-source-map
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        // alias: {
+        //     'react-dom': '@hot-loader/react-dom'
+        // }
     },
 
     entry: {
@@ -19,18 +22,24 @@ module.exports = {
             options: {
                 presets: [
                     ['@babel/preset-env', {
-                        targets:{
+                        targets: {
                             browsers: ['> 1% in KR']
                         }
                     }], '@babel/preset-react'],
                 plugins: ['@babel/plugin-proposal-class-properties', 'react-hot-loader/babel']
             }
-        }]
+        },
+            {
+                test: /\.(js|jsx)$/,
+                use: 'react-hot-loader/webpack',
+                include: /node_modules/
+            }],
+
     },
 
     // module의 options에 debug: true를 전부 넣어준다.
     plugins: [
-        new webpack.LoaderOptionsPlugin({ debug: true })
+        new webpack.LoaderOptionsPlugin({debug: true})
     ],
 
     output: {
