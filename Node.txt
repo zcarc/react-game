@@ -81,3 +81,18 @@
                         plugins: []
                     }
 
+
+2-9.
+
+    02_WordRelay>npm i -D webpack-dev-server
+    02_WordRelay>npm i -D react-hot-loader
+
+    webpack-dev-server: "webpack.config.js"를 읽어서 빌드를 해주고 서버로 유지를 시켜준다.
+    react-hot-loader: 코드 수정이 발생하면 실시간으로 반영된다.
+
+    * 강의에서는 react-hot-loader를 사용하라고 하지만 사용하지 않아도 현재 반영은 된다.
+
+    webpack.config.js는 수정하면 바로 반영되지 않아서 webpack을 다시 실행해야한다.
+
+    webpack-dev-server가 감지하는 것은 클라이언트에서 불러온 애들만 자동으로 업데이트 해주고
+    webpack.config.js에서는 바뀐것을 감지하지 못한다.

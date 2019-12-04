@@ -49,7 +49,8 @@ class WordRelay extends React.Component {
               <div>{this.state.word}</div>
               <form onSubmit={this.onSubmitInput}>
                   <input ref={this.onInputRef} type="text" value={this.state.value} onChange={this.onChangeInput}/>
-                  <button>입력!</button>
+                  <button>클릭1</button>
+                  <div>자동으로12</div>
               </form>
               <div>{this.state.result}</div>
           </>

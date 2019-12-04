@@ -23,7 +23,7 @@ module.exports = {
                             browsers: ['> 1% in KR']
                         }
                     }], '@babel/preset-react'],
-                plugins: ['@babel/plugin-proposal-class-properties']
+                plugins: ['@babel/plugin-proposal-class-properties', 'react-hot-loader/babel']
             }
         }]
     },
@@ -35,6 +35,13 @@ module.exports = {
 
     output: {
         filename: 'app.js',
-        path: path.join(__dirname, 'dist')
+        publicPath: '/dist/'
+
+        // wepack-dev-server 를 사용할 경우 path를 직접 설정하지 않아야한다.
+        // 강의에서 아마 직접 관리하는것 같다라고 한다.
+        // path: path.join(__dirname, 'dist')
+
+        // path: 실제 경로
+        // publicPath: 가상 경로
     }
 };
