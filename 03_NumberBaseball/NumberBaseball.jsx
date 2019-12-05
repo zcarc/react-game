@@ -6,6 +6,29 @@ function getNumbers(){ // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는
 }
 
 class NumberBaseball extends Component {
+
+    // constructor(props) {
+    //     super(props);
+    //
+    //     this.state = {
+    //         result: '',
+    //         value: '',
+    //         answer: getNumbers(),
+    //         tries: [],
+    //     };
+    //
+    //     // bind(this): NumberBaseball
+    //     // 예전 리액트에서 onChnageInput()에 함수를 사용하지 않고 사용했었을 때는 아래 코드가 필요했다.
+    //     this.onChangeInput = this.onChangeInput.bind(this);
+    // }
+    //
+    // onChangeInput(e) {
+    //     console.log(this);
+    //     this.setState({
+    //         value: e.target.value
+    //     });
+    // };
+
     state = {
         result: '',
         value: '',
@@ -17,8 +40,10 @@ class NumberBaseball extends Component {
 
     };
 
-    onChangeInput = () => {
-
+    onChangeInput = (e) => {
+        this.setState({
+           value: e.target.value
+        });
     };
 
     fruits = [
@@ -40,7 +65,7 @@ class NumberBaseball extends Component {
                     {this.fruits.map( (v, i) => {
                         return(
                             //리액트에서 아래와 같은 value와 index를 props라고 부른다.
-                            <Try value={v} index={i} />
+                            <Try key={v.fruit + v.taste} value={v} index={i} />
                         );
                     })}
                 </ul>
