@@ -22,7 +22,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
                 presets: ['@babel/preset-env', '@babel/preset-react'],
-                plugins: ['@babel/plugin-proposal-class-properties'],
+                plugins: ['@babel/plugin-proposal-class-properties', 'react-hot-loader/babel'],
             }
         }]
     },
@@ -30,7 +30,8 @@ module.exports = {
     // __dirname 은 노드에서 기본적으로 제공해주고 해당 파일의 폴더 경로를 반환해준다.
     // path.join()은 전달된 인자끼리 합치고 path 경로를 만들어서 반환해준다.
     output: {
-        path: path.join(__dirname, 'dist'),
+        // path: path.join(__dirname, 'dist'),
+        publicPath: '/dist/',
         filename: 'app.js'
     },// 출력
 
