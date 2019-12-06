@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {memo} from 'react';
 
-const Try = ({ tryInfo }) => {
+const Try = memo(({ tryInfo }) => {
     return(
         // key에 i를 넣으면 성능에 문제가 있어서 안쓰는게 좋다.
         // key를 기준으로 엘리먼트를 추가,수정,삭제를 하기 때문에 배열에 순서가 바뀌면 문제가 생긴다.
@@ -10,6 +10,6 @@ const Try = ({ tryInfo }) => {
             <div>{tryInfo.result}</div>
         </li>
     );
-};
+});
 
 export default Try;
