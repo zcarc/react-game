@@ -192,3 +192,13 @@
     PureComponent : shouldComponentUpdate()가 이미 구현되어 있는 객체
         PureComponent의 문제점은 객체나 배열이 참조 관계일 때 참조된 state를 그대로 넣으면 참조관계가 true여서
         PureComponent가 알아차리지 못한다. 그래서 state가 바뀌지 않은 것으로 판단되어 redering을 하지 않는다.
+
+
+
+4-1. React 조건문
+
+        for을 render() 안에서 못뜬다기 보다는
+        return ()안의 render()에서 for()을 사용하지 못한다.
+        쓸 수 있는 방법이 있는데 가독성이 안좋아서 보통은 다른 방법을 사용한다.
+
+        false, undefined, null은 jsx에서 "태그없음"을 의미한다.
