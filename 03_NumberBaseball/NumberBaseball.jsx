@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import Try from './Try';
 
 function getNumbers(){ // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -73,6 +73,9 @@ class NumberBaseball extends Component {
                 tries: [],
             });
 
+            // this.input.focus();
+            this.input.current.focus();
+
             // 오답일 경우
         } else {
 
@@ -99,6 +102,9 @@ class NumberBaseball extends Component {
                     answer: getNumbers() ,
                     tries: [],
                 });
+
+                // this.input.focus();
+                this.input.current.focus();
 
                 // 10번 미만으로 틀렸을 경우
             } else {
@@ -129,6 +135,9 @@ class NumberBaseball extends Component {
                 });
 
                 console.log('after setState tries: ', tries);
+
+                // this.input.focus();
+                this.input.current.focus();
             }
 
 
@@ -144,6 +153,15 @@ class NumberBaseball extends Component {
         });
     };
 
+    // 간단하게 하고 싶으면 이렇게 사용하면 된다.
+    input = creatRef();
+
+    // 함수로 하는 경우에는 함수 안에 다른 코드들을 삽입하고 싶을 때 사용한다.
+    // input;
+    // onInputRef = (e) => {
+    //     this.input = e;
+    // };
+
 
     render() {
 
@@ -154,7 +172,7 @@ class NumberBaseball extends Component {
                 <h1>{result}</h1>
 
                 <form onSubmit={this.onSubmitForm}>
-                    <input maxLength={4} value={value} onChange={this.onChangeInput}/>
+                    <input ref={this.input} maxLength={4} value={value} onChange={this.onChangeInput}/>
                 </form>
 
                 <div>시도: {tries.length}</div>

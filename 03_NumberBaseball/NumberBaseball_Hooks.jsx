@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Try from './Try_Hooks';
 
 function getNumbers(){ // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -20,6 +20,7 @@ const NumberBaseball = () => {
     const [value, setValue] = React.useState('');
     const [answer, setAnswer] = useState(getNumbers());
     const [tries, setTries] = React.useState([]);
+    const onInputRef = useRef(null);
 
     const onSubmitForm = (e) => {
         e.preventDefault();
@@ -46,6 +47,8 @@ const NumberBaseball = () => {
             setAnswer(getNumbers());
             setTries([]);
 
+            onInputRef.current.focus();
+
             // 오답일 경우
         } else {
 
@@ -68,6 +71,8 @@ const NumberBaseball = () => {
                 setValue('');
                 setAnswer(getNumbers());
                 setTries([]);
+
+                onInputRef.current.focus();
 
                 // 10번 미만으로 틀렸을 경우
             } else {
@@ -94,6 +99,8 @@ const NumberBaseball = () => {
                 setValue('');
 
                 console.log('after setState tries: ', tries);
+
+                onInputRef.current.focus();
             }
         }
     };
@@ -108,7 +115,7 @@ const NumberBaseball = () => {
             <h1>Hooks</h1>
             <h1>{result}</h1>
             <form onSubmit={onSubmitForm}>
-                <input maxLength={4} value={value} onChange={onChangeInput}/>
+                <input ref={onInputRef} maxLength={4} value={value} onChange={onChangeInput}/>
             </form>
             <div>시도: {tries.length}</div>
             <ul>
