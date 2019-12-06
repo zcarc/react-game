@@ -55,14 +55,16 @@ class NumberBaseball extends Component {
             console.log('정답인 경우');
             console.log('before setState tries: ', tries);
 
-            this.setState({
-                result: '홈런',
-                tries: [...tries, {try: value, result: '홈런!'}]
+            this.setState((prevState) => {
+                return{
+                    result: '홈런',
+                    tries: [...prevState.tries, {try: value, result: '홈런!'}]
+                }
             });
 
             console.log('after setState tries: ', tries);
 
-            alert('게임을 다시 시작합니다.');
+            alert('정답이므로 게임을 다시 시작합니다.');
 
             // 기존 답을 버리고 새로운 답을 생성
             this.setState({
@@ -119,9 +121,11 @@ class NumberBaseball extends Component {
 
                 console.log('before setState tries: ', tries);
 
-                this.setState({
-                    tries: [...tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다.` }],
-                    value: ''
+                this.setState((prevState) => {
+                    return {
+                        tries: [...prevState.tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다.` }],
+                        value: ''
+                    }
                 });
 
                 console.log('after setState tries: ', tries);
