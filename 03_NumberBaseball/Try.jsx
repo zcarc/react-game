@@ -2,6 +2,22 @@ import React, { PureComponent } from 'react';
 
 class Try extends PureComponent {
 
+    // constructor()로 생성하는 경우에는 세부적인 코드를 작성할 때 사용한다.
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            result: this.props.tryInfo.result,
+            try: this.props.tryInfo.try
+        };
+    }
+
+    // 부모의 props 를 자식의 state 상태로 만들 수 있다.
+    // state = {
+    //   result: this.props.tryInfo.result,
+    //   try: this.props.tryInfo.try
+    // };
+
     render() {
         const {tryInfo} = this.props;
         return(
