@@ -8,11 +8,65 @@ class ResponseCheck extends Component {
         result: [],
     };
 
+    // 렌더링이 필요 없다면 state 바깥에 선언이 가능하다.
+    timeout;
+    startTime;
+    endTime;
+
     onClickScreen = () => {
+        const {state, message, result} = this.state;
+
+        if (state === 'waiting') {
+            this.setState({
+                state: 'ready',
+                message: '초록색이 되면 클릭하세요.',
+            });
+
+
+            this.timeout = setTimeout(() => {
+                this.setState({
+                    state: 'now',
+                    message: '지금 클릭',
+                });
+
+                // Math.floor(Math.random() * 1000): 0~1000까지 랜덤
+                // +2000 기본이 2000에서 랜덤값 (0~1000)을 더해서 2초 ~ 3초
+            }, Math.floor(Math.random() * 1000) + 2000); // 2~3초 랜덤:
+
+
+            this.startTime = new Date();
+
+        } else if (state === 'ready') { // 빨간색일 때 클릭
+
+            // 처음에 하늘색인 "waiting" 상태에서 클릭을 하면
+            // 빨간색 배경인 "ready" 상태가 되는데
+            // 이 상태에서는 기다리면 초록색인 "now"가 된다.
+            // 그런데 "ready" 상태(빨간색 배경)일 때 클릭을 한다면
+            // 초록색 배경인 "now"로 변하게 만드는 setTimeout()이 실행되기전에
+            // 클릭을 한 것이므로 setTimeout()이 실행 안되게 클리어 해줘야한다.
+            clearTimeout(this.timeout);
+
+            this.setState({
+                state: 'waiting',
+                message: '너무 성급하시군요! 초록색이 된 후에 클릭하세요.',
+            });
+
+        } else if (state === 'now') { // 클릭해야할 때 클릭
+            this.endTime = new Date();
+
+            this.setState((prevState) => {
+                return {
+                    state: 'waiting',
+                    message: '클릭해서 시작하세요.',
+                    result: [...prevState.result, this.endTime - this.startTime],
+                }
+            });
+        }
+
 
     };
 
-    renderAverage =() => {
+    renderAverage = () => {
 
         const {result} = this.state;
 
