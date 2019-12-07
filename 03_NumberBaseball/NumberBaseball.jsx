@@ -154,7 +154,7 @@ class NumberBaseball extends Component {
     };
 
     // 간단하게 하고 싶으면 이렇게 사용하면 된다.
-    input = creatRef();
+    input = createRef();
 
     // 함수로 하는 경우에는 함수 안에 다른 코드들을 삽입하고 싶을 때 사용한다.
     // input;

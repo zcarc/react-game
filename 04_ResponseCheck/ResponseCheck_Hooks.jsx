@@ -58,9 +58,34 @@ const ResponseCheck_Hooks = () => {
             <div id="screen" className={state} onClick={onClickScreen}>
                 {message}
             </div>
+
             {renderAverage()}
+
+            {/*return 내부에 for과 if를 사용하려면 자바스크립트 문법을 사용해야하고*/}
+            {/*즉시 실행 함수로 실행해야한다. 하지만 이런 코드는 좋지 않기 때문에 잘 쓰이지 않는다.*/}
+            {/*{( () => {*/}
+            {/*    if(result.length === 0){*/}
+            {/*        return null;*/}
+            {/*    } else {*/}
+            {/*        return (*/}
+            {/*            <>*/}
+            {/*                <div>평균시간:{result.reduce((a, c) => a + c) / result.length}ms</div>*/}
+            {/*                <button onClick={onReset}>리셋</button>*/}
+            {/*            </>*/}
+            {/*        );*/}
+            {/*    }*/}
+            {/*}) ()}*/}
+
         </>
     )
+
+    // return [
+    //     <div key="사과">사과</div>,
+    //     <div key="배">배</div>,
+    //     <div key="감">감</div>,
+    //     <div key="귤">귤</div>,
+    //     <div key="포도">포도</div>,
+    // ]
 
 };
 

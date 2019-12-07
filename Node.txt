@@ -214,3 +214,19 @@
 
         setTimeout()이나 setInterval()들은 useRef()를 사용한다.
         값이 자주 바뀌는데 화면에 렌더링은 하지 않을 때 useRef()를 사용한다.
+
+
+
+4-5. return 내부에 for과 if 쓰기
+
+        jsx 에서 반환할 때 return() 이렇게 사용했었는데
+        return[] 배열로도 반환할 수 있다.
+        이 방법은 거의 쓰이지 않는다.
+
+        return [
+            <div key="사과">사과</div>,
+            <div key="배">배</div>,
+            <div key="감">감</div>,
+            <div key="귤">귤</div>,
+            <div key="포도">포도</div>,
+        ]

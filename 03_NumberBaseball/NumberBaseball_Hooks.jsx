@@ -118,14 +118,29 @@ const NumberBaseball = () => {
                 <input ref={onInputRef} maxLength={4} value={value} onChange={onChangeInput}/>
             </form>
             <div>시도: {tries.length}</div>
+
             <ul>
+
                 {tries.map( (v, i) => {
                     return(
                         //리액트에서 아래와 같은 value와 index를 props라고 부른다.
                         <Try key={`${i + 1}차 시도:`} tryInfo={v} />
                     );
                 })}
+
+
+                {/*return 내부에 for을 사용하는 방법*/}
+                {/*권장하는 방법은 아니다.*/}
+                {/*{( () => {*/}
+                {/*  const array = [];*/}
+                {/*  for(let i = 0; i < tries.length; i++) {*/}
+                {/*      array.push(<Try key={`${i + 1}차 시도:`} tryInfo={tries[i]} />);*/}
+                {/*  }*/}
+                {/*  return array;*/}
+                {/*})()}*/}
+
             </ul>
+
         </>
     );
 };
