@@ -86,9 +86,18 @@ class ResponseCheck extends Component {
         // && 연산자는 그 전값이 true가 나오면 다음 변수로 넘어간다는 의미이다.
         // 반대로 || 연산자는 false가 나온다면 다음 변수로 넘어간다.
         return (
-            result.length !== 0 &&
-            <div>평균시간:{result.reduce((a, c) => a + c) / result.length}ms</div>
+
+                result.length !== 0 &&  <>
+                <div>평균시간:{result.reduce((a, c) => a + c) / result.length}ms</div>
+                <button onClick={this.onReset}>리셋</button>
+            </>
         )
+    };
+
+    onReset = () => {
+        this.setState({
+            result: []
+        });
     };
 
     render() {
