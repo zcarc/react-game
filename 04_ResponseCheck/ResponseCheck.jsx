@@ -66,6 +66,12 @@ class ResponseCheck extends Component {
 
     };
 
+    onReset = () => {
+        this.setState({
+            result: []
+        });
+    };
+
     renderAverage = () => {
 
         const {result} = this.state;
@@ -94,11 +100,6 @@ class ResponseCheck extends Component {
         )
     };
 
-    onReset = () => {
-        this.setState({
-            result: []
-        });
-    };
 
     render() {
         return (
