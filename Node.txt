@@ -230,3 +230,41 @@
             <div key="귤">귤</div>,
             <div key="포도">포도</div>,
         ]
+
+
+
+5-1. 리액트 라이프사이클 소개
+
+            // render()가 가장 처음 성공적으로 실행-종료되었다면
+            // componentDidMount()가 한번만 실행된다.
+            // setState()로 인한 re-Rendering에는 실행되지 않는다.
+            // 주로 componentWillUnmount()와 같이 쓰인다.
+            componentDidMount() {
+
+            }
+
+            // 부모 Component가 현재의 Component를 제거했을 때 호출된다.
+            // 주로 componentDidMount()와 같이 쓰인다.
+            componentWillUnmount() {
+            }
+
+            // render()가 setState()로 인해서 re-rendering 되어도 실행하는 메서드이다.
+            componentDidUpdate(prevProps, prevState, snapshot) {
+            }
+
+
+            Life Cycle
+                클래스인 경우
+                1. constructor()
+                2. render()
+                3. ref()
+                4. componentDidMount()
+
+                setState() or props 바뀔 때
+                    a. shouldComponentUpdate(): true인 경우만 re-Rendering
+                    b. render()
+                    c. componentDidUpdate()
+
+                부모가 현재 컴포넌트 삭제 시: 부모 컴포넌트는 자식 컴포넌트를 삭제할 수 있다. 삭제하면 화면에서 사라진다.
+                    a. componentDidWillUnmount()
+                    b. 소멸
