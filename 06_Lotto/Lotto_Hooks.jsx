@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useMemo, useCallback} from 'react';
 import Ball from './Ball';
 
 function getWinNumbers() {
@@ -15,8 +15,17 @@ function getWinNumbers() {
 
 const Lotto = () => {
 
-    const [winNumbers, setWinNumbers] = useState(getWinNumbers());
     const [winBalls, setWinBalls] = useState([]);
+
+    // useMemo(), useCallback(), useEffect()는 두번째 인자가 존재한다.
+    // 최초 한번은 호출되고 두번째 인자가 바뀌지 않으면 실행되지 않는다.
+    // 여기서 쓰인 이유는 함수의 실행결과를 저장하기 위해서 쓰였다.
+    const lottoNumber = useMemo(() => getWinNumbers(), []);
+
+    // Hooke는 클래스와 다르게 컴포넌트 자체가 전부 다시 실행되기 때문에
+    // getWinNumbers() 함수가 반복해서 실행된다.
+    const [winNumbers, setWinNumbers] = useState(lottoNumber);
+
     const [bonus, setBonus] = useState(null);
     const [redo, setRedo] = useState(false);
     const timeouts = useRef([]);
@@ -59,15 +68,23 @@ const Lotto = () => {
     // 바뀌는 순간은 onClickRedo()를 호출할 때이다.
 
 
-    const onClickRedo = () => {
+    const onClickRedo = useCallback(() => {
         console.log('onClickRedo()...');
+
+        // onClickRedo가 다른곳에서 호출되었다고 할지라도
+        // useCallback() 자체가 실행되지 않으면
+        // 최초에 실행했던 값들을 그대로 기억한채로 저장되어 있어서
+        // 변경된 값들을 불러오려면 useCallback() 자체를 다시 실행시켜야한다.
+        // 실행시키는 방법은 두번째 인자에 해당 값이 변경되었을 때
+        // useCallback()이 실행되도록 해야한다.
+        console.log('winNumbers: ', winNumbers);
 
         setWinNumbers(getWinNumbers()); // 당첨 숫자들
         setWinBalls([]);
         setBonus(null); // 보너스 공
         setRedo(false);
         timeouts.current = [];
-    };
+    }, [winNumbers]);
 
 
     return (

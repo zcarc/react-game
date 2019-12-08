@@ -319,3 +319,17 @@
         함수 컴포넌트를 memo()로 감싸는것 처럼
         컴포넌트를 다른 컴포넌트로 감싸는 것을
         하이오더 컴포넌트 혹은 HOC라고한다
+
+
+6-5. useMemo와 useCallback
+
+        useMemo(): 복잡한 함수 결괏값을 기억 (함수의 리턴 값)
+        useRef(): 일반 값을 기억
+        useCallback(): 함수 자체를 기억
+
+        참고로 Hooks는 다른 코드에서 사용하는 경우가 있기 때문에 선언의 순서가 중요하다.
+
+
+        {bonus && <Ball number={bonus} onClick={onClickRedo}/>}
+        이런식으로 props에 함수를 넣으면 자식 컴포넌트는 새로운 함수인줄 알고 계속 re-rendering을 하게된다.
+        이런것을 방지하기 위해서 useCallback()를 사용해야한다.
