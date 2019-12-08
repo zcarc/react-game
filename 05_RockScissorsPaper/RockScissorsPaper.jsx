@@ -78,7 +78,13 @@ class RockScissorsPaper extends Component {
 
     };
 
-    onClickBtn = (choice) => {
+    // 고차함수
+    // 호출부에서 () => onClickBtn('rock') 이런식으로 함수로 호출했을 경우에 사용한다.
+    // onClickBtn = (choice) => {
+
+    // onClickBtn = () => (choice) => { //이렇게 사용해도 에러가 발생하지 않는다.
+    onClickBtn = (choice) => () => {
+
 
         clearInterval(this.interval);
 
@@ -129,9 +135,10 @@ class RockScissorsPaper extends Component {
             <>
                 <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }} />
                 <div>
-                    <button id="rock" className="btn" onClick={() => this.onClickBtn('rock')}>바위</button>
-                    <button id="scissor" className="btn" onClick={() => this.onClickBtn('scissors')}>가위</button>
-                    <button id="paper" className="btn" onClick={() => this.onClickBtn('paper')}>보</button>
+                    {/*<button id="rock" className="btn" onClick={() => this.onClickBtn('rock')}>바위</button>*/}
+                    <button id="rock" className="btn" onClick={this.onClickBtn('rock')}>바위</button>
+                    <button id="scissor" className="btn" onClick={this.onClickBtn('scissors')}>가위</button>
+                    <button id="paper" className="btn" onClick={this.onClickBtn('paper')}>보</button>
                 </div>
                 <div>{result}</div>
                 <div>현재 {score}점</div>
