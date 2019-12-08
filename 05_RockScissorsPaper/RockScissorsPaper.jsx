@@ -12,11 +12,17 @@ const scores = {
     paper: -1,
 };
 
+const computerChoice = (imgCoord) => {
+    return Object.entries(rspCoords).find(function(v) {
+        return v[1] === imgCoord;
+    })[0];
+};
+
 class RockScissorsPaper extends Component {
 
     state = {
       result: '',
-      imgCoord: '0',
+      imgCoord: rspCoords.rock,
       score: 0,
     };
 
@@ -30,34 +36,7 @@ class RockScissorsPaper extends Component {
     componentDidMount() {
         console.log('hello');
 
-        this.interval = setInterval(() => {
-            console.log('interval');
-            const {imgCoord} = this.state;
-            if (imgCoord === rspCoords.rock) {
-                console.log('if (imgCoord === rspCoords.rock)');
-                this.setState({
-                    imgCoord: rspCoords.scissors,
-                });
-
-            } else if (imgCoord === rspCoords.scissors) {
-                console.log('else if (imgCoord === rspCoords.scissors)');
-                this.setState({
-                    imgCoord: rspCoords.paper,
-                });
-
-            } else if (imgCoord === rspCoords.paper) {
-                console.log('else if (imgCoord === rspCoords.paper)');
-                this.setState({
-                    imgCoord: rspCoords.rock,
-                });
-            } else {
-                console.log('else');
-                console.log('imgCoord: ', imgCoord);
-                console.log('rspCoords: ', rspCoords);
-            }
-
-        }, 1000);
-
+        this.interval = setInterval(this.changeHand, 100);
     }
 
     // render()가 setState()로 인해서 re-rendering 되어도 실행하는 메서드이다.
@@ -71,8 +50,75 @@ class RockScissorsPaper extends Component {
         clearInterval(this.interval);
     }
 
+    changeHand = () => {
+        console.log('interval');
+        const {imgCoord} = this.state;
+        if (imgCoord === rspCoords.rock) {
+            console.log('if (imgCoord === rspCoords.rock)');
+            this.setState({
+                imgCoord: rspCoords.scissors,
+            });
+
+        } else if (imgCoord === rspCoords.scissors) {
+            console.log('else if (imgCoord === rspCoords.scissors)');
+            this.setState({
+                imgCoord: rspCoords.paper,
+            });
+
+        } else if (imgCoord === rspCoords.paper) {
+            console.log('else if (imgCoord === rspCoords.paper)');
+            this.setState({
+                imgCoord: rspCoords.rock,
+            });
+        } else {
+            console.log('else');
+            console.log('imgCoord: ', imgCoord);
+            console.log('rspCoords: ', rspCoords);
+        }
+
+    };
+
     onClickBtn = (choice) => {
+
+        clearInterval(this.interval);
+
+        const {imgCoord} = this.state;
+        const myScore = scores[choice];
+        const cpuScore = scores[computerChoice(imgCoord)];
+        const diff = myScore - cpuScore;
+
         console.log('choice: ', choice);
+        console.log('imgCoord: ', imgCoord);
+        console.log('myScore: ', myScore);
+        console.log('cpuScore: ', cpuScore);
+        console.log('diff: ', diff);
+
+
+        if (diff === 0) {
+            this.setState({
+                result: '비겼습니다!',
+            });
+
+        } else if ([-1, 2].includes(diff)) {
+            this.setState((prevState) => {
+                return {
+                    result: '이겼습니다!',
+                    score: prevState.score + 1,
+                };
+            });
+
+        } else {
+            this.setState((prevState) => {
+                return {
+                    result: '졌습니다!',
+                    score: prevState.score - 1,
+                };
+            });
+        }
+
+        setTimeout(() => {
+            this.interval = setInterval(this.changeHand, 100);
+        }, 2000);
     };
 
 
@@ -83,9 +129,9 @@ class RockScissorsPaper extends Component {
             <>
                 <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }} />
                 <div>
-                    <button id="rock" className="btn" onClick={this.onClickBtn('rock')}>바위</button>
-                    <button id="scissor" className="btn" onClick={this.onClickBtn('scissors')}>가위</button>
-                    <button id="paper" className="btn" onClick={this.onClickBtn('paper')}>보</button>
+                    <button id="rock" className="btn" onClick={() => this.onClickBtn('rock')}>바위</button>
+                    <button id="scissor" className="btn" onClick={() => this.onClickBtn('scissors')}>가위</button>
+                    <button id="paper" className="btn" onClick={() => this.onClickBtn('paper')}>보</button>
                 </div>
                 <div>{result}</div>
                 <div>현재 {score}점</div>
