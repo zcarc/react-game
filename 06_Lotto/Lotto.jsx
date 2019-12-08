@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Ball from './Ball';
 
 function getWinNumbers() {
@@ -21,16 +21,57 @@ class Lotto extends Component {
         redo: false,
     };
 
+    timeouts = [];
+
+    // render()가 성공적으로 종료되었다면
+    // 이 메서드는 딱 한번만 호출된다.
+    componentDidMount() {
+        console.log('componentDidMount()');
+        const {winNumbers} = this.state;
+
+        // for 안에 setTimeout()을 사용하면 원래 클로저 문제가 있었지만
+        // ES6 문법인 let을 사용하면 클로저 문제가 발생하지 않는다.
+        for (let i = 0; i < winNumbers.length - 1; i++) {
+            console.log('for i: ', i);
+
+            this.timeouts[i] = setTimeout(() => {
+                console.log('setTimeout i: ', i);
+                this.setState((prevState) => {
+                    return {
+                        winBalls: [...prevState.winBalls, winNumbers[i]],
+                    };
+                });
+            }, (i + 1) * 1000);
+        }
+
+        this.timeouts[6] = setTimeout(() => {
+            this.setState({
+                bonus: winNumbers[6],
+                redo: true,
+            });
+        }, 7000);
+
+    };
+
+    // setTimeout()이 동작하는 중에 브라우저를 끈다면 아래 메서드가 실행된다.
+    // 브라우저 끄는것은 componentWillUnmount()가 발생 안하는데
+    // 브라우저를 종료 시키는 행위를 부모 컴포넌트가 현재 컴포넌트를 삭제했다고 해석해도 된다.
+    componentWillUnmount() {
+        this.timeouts.forEach((v) => {
+            clearTimeout(v);
+        })
+    }
+
     render() {
-        const { winBalls, bonus, redo } = this.state;
+        const {winBalls, bonus, redo} = this.state;
         return (
             <>
                 <div>당첨 숫자</div>
                 <div id="결과창">
-                    {winBalls.map((v) => <Ball key={v} number={v} />)}
+                    {winBalls.map((v) => <Ball key={v} number={v}/>)}
                 </div>
                 <div>보너스!</div>
-                {bonus && <Ball number={bonus} />}
+                {bonus && <Ball number={bonus}/>}
                 {redo && <button onClick={this.onClickRedo}>한 번 더!</button>}
             </>
         );
