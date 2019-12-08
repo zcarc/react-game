@@ -23,10 +23,7 @@ class Lotto extends Component {
 
     timeouts = [];
 
-    // render()가 성공적으로 종료되었다면
-    // 이 메서드는 딱 한번만 호출된다.
-    componentDidMount() {
-        console.log('componentDidMount()');
+    runTimeouts = () => {
         const {winNumbers} = this.state;
 
         // for 안에 setTimeout()을 사용하면 원래 클로저 문제가 있었지만
@@ -50,8 +47,25 @@ class Lotto extends Component {
                 redo: true,
             });
         }, 7000);
-
     };
+
+    // render()가 성공적으로 종료되었다면
+    // 이 메서드는 딱 한번만 호출된다.
+    componentDidMount() {
+        console.log('componentDidMount()');
+        this.runTimeouts();
+    };
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // setState()가 될 때 마다 이 메서드가 실행되어
+        // this.runTimetoues()를 계속 호출하므로 조건문이 반드시 필요하다.
+        // winBalss.length가 0이라는 것은 초기화 되었다는 의미
+        console.log('componentDidUpdate()...');
+        if(this.state.winBalls.length === 0) {
+            this.runTimeouts();
+        }
+    }
 
     // setTimeout()이 동작하는 중에 브라우저를 끈다면 아래 메서드가 실행된다.
     // 브라우저 끄는것은 componentWillUnmount()가 발생 안하는데
@@ -61,6 +75,16 @@ class Lotto extends Component {
             clearTimeout(v);
         })
     }
+
+    onClickRedo = () => {
+        this.setState({
+            winNumbers: getWinNumbers(), // 당첨 숫자들
+            winBalls: [],
+            bonus: null, // 보너스 공
+            redo: false,
+        });
+        this.timeouts = [];
+    };
 
     render() {
         const {winBalls, bonus, redo} = this.state;
