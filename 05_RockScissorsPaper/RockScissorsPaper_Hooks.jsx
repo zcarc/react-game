@@ -105,6 +105,7 @@ const RockScissorsPaper_Hooks = () => {
 
 
 
+
     return (
         <>
             <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }} />
