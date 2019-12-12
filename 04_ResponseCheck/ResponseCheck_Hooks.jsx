@@ -14,8 +14,8 @@ const ResponseCheck_Hooks = () => {
     const onClickScreen = () => {
 
         if (state === 'waiting') {
-            // setState('ready');
-            // setMessage('초록색이 되면 클릭하세요.');
+            setState('ready');
+            setMessage('초록색이 되면 클릭하세요.');
 
             timeout.current = setTimeout(() => {
                 setState('now');

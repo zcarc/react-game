@@ -22,7 +22,7 @@ const Lotto = () => {
     // 여기서 쓰인 이유는 함수의 실행결과를 저장하기 위해서 쓰였다.
     const lottoNumber = useMemo(() => getWinNumbers(), []);
 
-    // Hooke는 클래스와 다르게 컴포넌트 자체가 전부 다시 실행되기 때문에
+    // Hooks는 클래스와 다르게 컴포넌트 자체가 전부 다시 실행되기 때문에
     // getWinNumbers() 함수가 반복해서 실행된다.
     const [winNumbers, setWinNumbers] = useState(lottoNumber);
 
