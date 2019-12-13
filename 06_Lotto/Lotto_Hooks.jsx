@@ -84,7 +84,25 @@ const Lotto = () => {
         setBonus(null); // 보너스 공
         setRedo(false);
         timeouts.current = [];
-    }, [winNumbers]);
+    }, []);
+
+    // const onClickRedo = () => {
+    //     console.log('onClickRedo()...');
+    //
+    //     // onClickRedo가 다른곳에서 호출되었다고 할지라도
+    //     // useCallback() 자체가 실행되지 않으면
+    //     // 최초에 실행했던 값들을 그대로 기억한채로 저장되어 있어서
+    //     // 변경된 값들을 불러오려면 useCallback() 자체를 다시 실행시켜야한다.
+    //     // 실행시키는 방법은 두번째 인자에 해당 값이 변경되었을 때
+    //     // useCallback()이 실행되도록 해야한다.
+    //     console.log('winNumbers: ', winNumbers);
+    //
+    //     setWinNumbers(getWinNumbers()); // 당첨 숫자들
+    //     setWinBalls([]);
+    //     setBonus(null); // 보너스 공
+    //     setRedo(false);
+    //     timeouts.current = [];
+    // };
 
 
     return (

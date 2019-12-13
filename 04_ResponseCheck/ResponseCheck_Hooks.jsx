@@ -37,6 +37,8 @@ const ResponseCheck_Hooks = () => {
             setState('waiting');
             setMessage('클릭해서 시작하세요.');
             setResult((prevResult) => [...prevResult, endTime.current - startTime.current]);
+
+            console.log('result: ', result);
         }
     };
 
